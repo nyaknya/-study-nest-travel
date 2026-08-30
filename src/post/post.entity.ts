@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  Index,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 @Index('IDX_POST_TITLE', ['title']) // title에 대한 인덱스 이름 지정
@@ -22,4 +28,12 @@ export class Post {
     nullable: false,
   })
   authorId: number;
+
+  @CreateDateColumn({
+    type: 'timestamp',
+    name: 'created_at',
+    nullable: false,
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
 }
