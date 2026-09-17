@@ -1,3 +1,4 @@
+import { UsersService } from './users/users.service';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -5,7 +6,6 @@ import { PostModule } from './post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
-import { UserService } from './user/user.service';
 import { AuthModule } from './auth/auth.module';
 import typeorm from './config/typeorm';
 
@@ -13,6 +13,7 @@ import typeorm from './config/typeorm';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env.local',
       load: [typeorm],
     }),
     TypeOrmModule.forRootAsync({
@@ -25,6 +26,6 @@ import typeorm from './config/typeorm';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UserService],
+  providers: [AppService, UsersService],
 })
 export class AppModule {}
